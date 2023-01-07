@@ -1,0 +1,32 @@
+﻿<Properties StartupConfiguration="{1AD7A318-5DAA-8B3F-74D8-850163F20C63}|">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Asteroid.cs">
+    <Files>
+      <File FileName="Assets/LevelManager.cs" Line="13" Column="29" />
+      <File FileName="Assets/Player.cs" Line="17" Column="39" />
+      <File FileName="Assets/Asteroid.cs" Line="21" Column="14" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="Nomad Miner" expanded="True">
+            <Node name="Assets" expanded="True">
+              <Node name="Asteroid.cs" selected="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+      <Pad Id="MonoDevelop.UnitTesting.TestPad">
+        <State name="__root__">
+          <Node name="Unity" expanded="True" selected="True" />
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="0fe69a6c-4ab2-4514-a47a-db7139c8091b" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>
