@@ -28,6 +28,9 @@ public class Asteroid : MonoBehaviour
             {
                 GameObject resourceOrb = Instantiate(resourcePrefab);
                 resourceOrb.transform.parent = gameObject.transform;
+
+                // Position it so multiples of the same resource 'stack'
+                // TODO need to add offset here (or adjust the prefab with an anchor) since the position is the center of the cylinder
                 resourceOrb.transform.localPosition = new Vector3(0, i * 0.55f, 0);
                 resourceOrb.GetComponent<Renderer>().material.SetColor("_Color", resource.GetColor());
             }
