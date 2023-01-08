@@ -5,7 +5,7 @@ using UnityEngine;
 public class Asteroid : MonoBehaviour
 {
     public GameObject resourcePrefab;
-    public Resource[] currentResources;
+    public List<Resource> currentResources;
     public List<GameObject> currentResourceObjects;
 
     // Start is called before the first frame update
@@ -22,7 +22,7 @@ public class Asteroid : MonoBehaviour
 
     public void SetResources(Resource[] resources)
     {
-        currentResources = resources;
+        currentResources = new List<Resource>(resources);
         currentResourceObjects = new List<GameObject>();
         int resourceIndex = 0;
         foreach(Resource resource in currentResources)
@@ -44,7 +44,7 @@ public class Asteroid : MonoBehaviour
         }
     }
 
-    public void HarvestResources(GameObject target)
+    public void HarvestResourceObjects(GameObject target)
     {
         foreach(GameObject resourceOrb in currentResourceObjects)
         {

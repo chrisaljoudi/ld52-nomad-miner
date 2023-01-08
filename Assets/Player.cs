@@ -5,8 +5,9 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public Rigidbody rb;
-
     public HingeJoint currentAsteroidJoint = null;
+
+    public List<Resource> currentResources = new List<Resource>();
 
     // Start is called before the first frame update
     void Start()
@@ -33,18 +34,21 @@ public class Player : MonoBehaviour
 
     void AttachToAsteroid(GameObject asteroid)
     {
-        // Attach to asteroid and begin rotating
+        // Detach from previous asteroid if any
         if (currentAsteroidJoint != null)
         {
             Destroy(currentAsteroidJoint);
         }
 
+        // Attach to asteroid and begin rotating
         currentAsteroidJoint = gameObject.AddComponent<HingeJoint>();
         currentAsteroidJoint.connectedBody = asteroid.GetComponent<Rigidbody>();
         rb.AddForce(1000, 0, 0);
 
         // Harvest the resources
-        asteroid.GetComponent<Asteroid>().HarvestResources(gameObject);
+        Asteroid asteroidObject = asteroid.GetComponent<Asteroid>();
+        HarvestResources(asteroidObject.currentResources);
+        asteroidObject.HarvestResourceObjects(gameObject);
     }
 
     void DetachFromAsteroid()
@@ -52,6 +56,22 @@ public class Player : MonoBehaviour
         if (currentAsteroidJoint != null)
         {
             Destroy(currentAsteroidJoint);
+        }
+    }
+
+    void HarvestResources(List<Resource> resources)
+    {
+        foreach(Resource resource in resources)
+        {
+            Resource existing = currentResources.Find(r => r.material == resource.material);
+            if (existing != null)
+            {
+                existing.count += resource.count;
+            }
+            else
+            {
+                currentResources.Add(resource);
+            }
         }
     }
 }
