@@ -6,6 +6,7 @@ public class Asteroid : MonoBehaviour
 {
     public GameObject resourcePrefab;
     public Resource[] currentResources;
+    public List<GameObject> currentResourceObjects;
 
     // Start is called before the first frame update
     void Start()
@@ -22,19 +23,34 @@ public class Asteroid : MonoBehaviour
     public void SetResources(Resource[] resources)
     {
         currentResources = resources;
+        currentResourceObjects = new List<GameObject>();
+        int resourceIndex = 0;
         foreach(Resource resource in currentResources)
         {
             for(int i = 1; i <= resource.count; ++i)
             {
                 GameObject resourceOrb = Instantiate(resourcePrefab);
+                currentResourceObjects.Add(resourceOrb);
                 resourceOrb.transform.parent = gameObject.transform;
 
-                // Position it so multiples of the same resource 'stack'
-                // TODO need to add offset here (or adjust the prefab with an anchor) since the position is the center of the cylinder
-                resourceOrb.transform.localPosition = new Vector3(0, i * 0.55f, 0);
+                float angle = Mathf.Deg2Rad * resourceIndex * 18f;
+
+                resourceOrb.transform.localPosition = new Vector3(0, 0.55f, -0.5f);
+                resourceOrb.transform.RotateAround(gameObject.transform.position, Vector3.forward, resourceIndex * 18f);
                 resourceOrb.GetComponent<Renderer>().material.SetColor("_Color", resource.GetColor());
+
+                resourceIndex += 1;
             }
         }
+    }
+
+    public void HarvestResources(GameObject target)
+    {
+        foreach(GameObject resourceOrb in currentResourceObjects)
+        {
+            resourceOrb.GetComponent<ResourceOrb>().harvestTarget = target;
+        }
+        currentResourceObjects.Clear();
     }
 }
 

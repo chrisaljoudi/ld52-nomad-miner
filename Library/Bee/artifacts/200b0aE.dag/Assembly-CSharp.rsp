@@ -366,6 +366,7 @@
 "Assets/Asteroid.cs"
 "Assets/LevelManager.cs"
 "Assets/Player.cs"
+"Assets/ResourceOrb.cs"
 -langversion:9.0
 
 /deterministic

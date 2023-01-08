@@ -60,6 +60,7 @@
   <ItemGroup>
     <Compile Include="Assets/Player.cs" />
     <Compile Include="Assets/LevelManager.cs" />
+    <Compile Include="Assets/ResourceOrb.cs" />
     <Compile Include="Assets/Asteroid.cs" />
   </ItemGroup>
   <ItemGroup>

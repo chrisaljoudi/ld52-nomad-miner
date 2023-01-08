@@ -33,6 +33,7 @@ public class Player : MonoBehaviour
 
     void AttachToAsteroid(GameObject asteroid)
     {
+        // Attach to asteroid and begin rotating
         if (currentAsteroidJoint != null)
         {
             Destroy(currentAsteroidJoint);
@@ -41,6 +42,9 @@ public class Player : MonoBehaviour
         currentAsteroidJoint = gameObject.AddComponent<HingeJoint>();
         currentAsteroidJoint.connectedBody = asteroid.GetComponent<Rigidbody>();
         rb.AddForce(1000, 0, 0);
+
+        // Harvest the resources
+        asteroid.GetComponent<Asteroid>().HarvestResources(gameObject);
     }
 
     void DetachFromAsteroid()
