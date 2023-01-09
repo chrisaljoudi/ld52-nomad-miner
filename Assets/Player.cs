@@ -12,8 +12,11 @@ public class Player : MonoBehaviour
     public List<Resource> currentResources = new List<Resource>();
 
     public GameObject linePrefab;
+    public GameObject bloodPrefab;
     public GameObject trajectoryLine;
     public VolumetricLineBehavior trajectoryLineBehavior;
+
+    public bool hasLaunched = false;
 
     // Start is called before the first frame update
     void Start()
@@ -26,9 +29,37 @@ public class Player : MonoBehaviour
         trajectoryLineBehavior.LineColor = new Color(1, 0, 0, 0.2f);
     }
 
+    public void LaunchReset()
+    {
+        rb.rotation = Quaternion.identity;
+        rb.velocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+
+        gameObject.GetComponent<Renderer>().enabled = true;
+        hasLaunched = false;
+    }
+
     // Update is called once per frame
     void Update()
     {
+        if (!hasLaunched)
+        {
+            var mouseCoordinates = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            var mouseUnit = (mouseCoordinates - rb.position).normalized;
+            trajectoryLine.SetActive(true);
+            trajectoryLineBehavior.StartPos = rb.position;
+            trajectoryLineBehavior.EndPos = rb.position + mouseUnit * 3;
+            if (Input.GetKeyDown("space"))
+            {
+                hasLaunched = true;
+                trajectoryLine.SetActive(false);
+
+                // Kick off player
+                mouseUnit.z = 0;
+                rb.AddForce(mouseUnit * 250);
+            }
+            return;
+        }
         if (Input.GetKeyDown("space"))
         {
             DetachFromAsteroid();
@@ -39,6 +70,11 @@ public class Player : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
+        if (!hasLaunched)
+        {
+            return;
+        }
+
         if (collision.gameObject.tag == "Asteroid")
         {
             AttachToAsteroid(collision.gameObject);
@@ -57,6 +93,7 @@ public class Player : MonoBehaviour
             Destroy(currentAsteroidJoint);
         }
 
+        //rb.transform.LookAt(asteroid.transform); 
         // Attach to asteroid and begin rotating
         currentAsteroidJoint = gameObject.AddComponent<HingeJoint>();
         currentAsteroidJoint.connectedBody = asteroid.GetComponent<Rigidbody>();
@@ -69,14 +106,16 @@ public class Player : MonoBehaviour
         asteroidObject.HarvestResourceObjects(gameObject);
 
         // Show trajectory line
-        StartCoroutine(ShowTrajectoryLine());
+        StartCoroutine(ShowTrajectoryLineDelayed());
     }
-    IEnumerator ShowTrajectoryLine()
+
+    IEnumerator ShowTrajectoryLineDelayed()
     {
         // Wait a frame before showing line, otherwise we get a flash of a bad trajectory.
         yield return new WaitForSeconds(Time.deltaTime);
         trajectoryLine.SetActive(true);
     }
+
     void DetachFromAsteroid()
     {
         if (currentAsteroidJoint != null)
@@ -90,6 +129,22 @@ public class Player : MonoBehaviour
             rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, 0);
             //rb.position = new Vector3(rb.position.x, rb.position.y, 0);
         }
+    }
+
+    public void Dead()
+    {
+        StartCoroutine(DieAfterBlood());
+    }
+
+    IEnumerator DieAfterBlood()
+    {
+        rb.velocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+
+        gameObject.GetComponent<Renderer>().enabled = false;
+        var blood = Instantiate(bloodPrefab, transform);
+        yield return new WaitForSeconds(0.6f);
+        Destroy(blood);
     }
 
     void HarvestResources(List<Resource> resources)
