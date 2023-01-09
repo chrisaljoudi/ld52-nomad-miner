@@ -62,11 +62,17 @@ public class LevelManager : MonoBehaviour
         }
 
         // Initialize player and ship position
-        player.transform.position = new Vector3(0, -3, 0);
+        player.transform.position = new Vector3(0, -2.5f, 0);
         ship.transform.position = new Vector3(0, -4, 0);
 
         // Ready player
         player.GetComponent<Player>().LaunchReset();
+    }
+    
+    public void restart() {
+    
+    	 StartCoroutine(FailedLevel(""));
+    
     }
 
     public void ReturnedToShip(List<Resource> resources)

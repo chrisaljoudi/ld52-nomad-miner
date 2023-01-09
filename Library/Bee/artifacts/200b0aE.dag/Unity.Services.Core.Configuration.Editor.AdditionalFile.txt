@@ -1,1 +1,1 @@
-/Users/chris/Nomad Miner
+/home/jason/ld52-nomad-miner

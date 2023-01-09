@@ -18,8 +18,9 @@ public class ResourceOrb : MonoBehaviour
     {
         if (harvestTarget != null)
         {
-            rb.position = Vector3.MoveTowards(rb.position, harvestTarget.transform.position, 0.005f);
-            if (Vector3.Distance(rb.position, harvestTarget.transform.position) < 0.005f)
+            var movement = (harvestTarget.transform.position - rb.position).normalized;
+            rb.position += movement * 7 * Time.deltaTime;
+            if (Vector3.Distance(rb.position, harvestTarget.transform.position) < 0.015f)
             {
                 harvestTarget = null;
                 Destroy(gameObject);

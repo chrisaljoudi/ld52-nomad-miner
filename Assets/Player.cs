@@ -32,6 +32,8 @@ public class Player : MonoBehaviour
     public void LaunchReset()
     {
         rb.rotation = Quaternion.identity;
+        gameObject.transform.rotation = Quaternion.identity;
+        gameObject.transform.Rotate(0, 0, 90);
         rb.velocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
 
@@ -66,6 +68,10 @@ public class Player : MonoBehaviour
         }
         trajectoryLineBehavior.StartPos = rb.position;
         trajectoryLineBehavior.EndPos = rb.position + rb.velocity.normalized * 3;
+        
+        if (Input.GetKeyDown("r")) { 
+        	levelManager.restart(); 
+        }
     }
 
     void OnCollisionEnter(Collision collision)
@@ -78,11 +84,30 @@ public class Player : MonoBehaviour
         if (collision.gameObject.tag == "Asteroid")
         {
             AttachToAsteroid(collision.gameObject);
+        } 
+     
+    }
+    
+    void OnTriggerEnter(Collider collision) {
+    	if (!hasLaunched)
+        {
+            return;
         }
-        else if (collision.gameObject.tag == "Ship")
+        
+        if (collision.gameObject.tag == "Ship")
         {
             levelManager.ReturnedToShip(currentResources);
         }
+    
+       if (collision.gameObject.tag == "pebbleAsteroids") {
+         	Debug.Log("Hit mini asteroids: speed reduced"); 
+        	if (rb.velocity.magnitude < 1.0f) {
+        		rb.velocity = new Vector3(0, 0, 0);
+        	} else { 
+			rb.velocity = new Vector3(rb.velocity.x*0.5f, rb.velocity.y*0.5f, 0);
+           	}
+        }
+    
     }
 
     void AttachToAsteroid(GameObject asteroid)
@@ -123,9 +148,7 @@ public class Player : MonoBehaviour
 
             Destroy(currentAsteroidJoint);
 
-            // Stop z movement & move back to z=0 where all asteroids are
-            rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, 0);
-            rb.position = new Vector3(rb.position.x, rb.position.y, 0);
+            StartCoroutine(ResetZ());
         }
     }
 
@@ -134,6 +157,13 @@ public class Player : MonoBehaviour
         StartCoroutine(DieAfterBlood());
     }
 
+    IEnumerator ResetZ()
+    {
+        yield return new WaitForSeconds(Time.deltaTime * 2);
+        // Stop z movement & move back to z=0 where all asteroids are
+        rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, 0);
+        rb.position = new Vector3(rb.position.x, rb.position.y, 0);
+    }
     IEnumerator DieAfterBlood()
     {
         rb.velocity = Vector3.zero;

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Asteroid
   - Ship
+  - pebbleAsteroids
   layers:
   - Default
   - TransparentFX
