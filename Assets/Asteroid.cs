@@ -33,8 +33,9 @@ public class Asteroid : MonoBehaviour
                 currentResourceObjects.Add(resourceOrb);
                 resourceOrb.transform.parent = gameObject.transform;
 
+                float angle = (30f + resourceIndex * 30f) % 360;
                 resourceOrb.transform.localPosition = new Vector3(0, 0.55f, -0.5f);
-                resourceOrb.transform.RotateAround(gameObject.transform.position, Vector3.forward, resourceIndex * 30f);
+                resourceOrb.transform.RotateAround(gameObject.transform.position, Vector3.back, angle);
                 resourceOrb.GetComponent<Renderer>().material.SetColor("_Color", resource.GetColor());
 
                 resourceIndex += 1;

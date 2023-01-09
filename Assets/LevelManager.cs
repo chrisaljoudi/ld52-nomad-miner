@@ -15,7 +15,7 @@ public class LevelManager : MonoBehaviour
     {
         StartLevel(new[] {
           new AsteroidConfig(0, 0, new[] { new Resource(Resource.Type.Gold) }),
-          new AsteroidConfig(3, 3, new[] { new Resource(Resource.Type.Energy, 2) })
+          new AsteroidConfig(7, 7, new[] { new Resource(Resource.Type.Energy, 2) })
         });
     }
 

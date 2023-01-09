@@ -58,10 +58,27 @@
     <Analyzer Include="/Applications/Unity/Hub/Editor/2022.2.1f1/Unity.app/Contents/Tools/Unity.SourceGenerators/Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets/VolumetricLines/BuiltInRenderPipeline/ExampleScenes/ExampleScripts/VolumetricMultiLineBehavior.cs" />
     <Compile Include="Assets/Player.cs" />
+    <Compile Include="Assets/VolumetricLines/Scripts/VolumetricLineStripBehavior.cs" />
+    <Compile Include="Assets/VolumetricLines/BuiltInRenderPipeline/ExampleScenes/ExampleScripts/CreateSinShapedLineStrip.cs" />
+    <Compile Include="Assets/VolumetricLines/BuiltInRenderPipeline/ExampleScenes/ExampleScripts/CannonBehavior.cs" />
     <Compile Include="Assets/LevelManager.cs" />
+    <Compile Include="Assets/VolumetricLines/Scripts/VolumetricLineBehavior.cs" />
+    <Compile Include="Assets/VolumetricLines/BuiltInRenderPipeline/ExampleScenes/ExampleScripts/ShotBehavior.cs" />
     <Compile Include="Assets/ResourceOrb.cs" />
     <Compile Include="Assets/Asteroid.cs" />
+    <Compile Include="Assets/VolumetricLines/Scripts/VolumetricLineVertexData.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets/VolumetricLines/BuiltInRenderPipeline/Shaders/_LineStripShader.cginc" />
+    <None Include="Assets/VolumetricLines/BuiltInRenderPipeline/Shaders/LineStrip-TextureAlphaBlended.shader" />
+    <None Include="Assets/VolumetricLines/BuiltInRenderPipeline/Shaders/SingleLine-TextureAdditive.shader" />
+    <None Include="Assets/VolumetricLines/BuiltInRenderPipeline/Shaders/_SingleLineShader.cginc" />
+    <None Include="Assets/VolumetricLines/BuiltInRenderPipeline/Shaders/LineStrip-TextureAdditive.shader" />
+    <None Include="Assets/VolumetricLines/BuiltInRenderPipeline/Shaders/SingleLine-TextureAlphaBlended.shader" />
+    <None Include="Assets/VolumetricLines/BuiltInRenderPipeline/Shaders/LineStrip-LightSaber.shader" />
+    <None Include="Assets/VolumetricLines/BuiltInRenderPipeline/Shaders/SingleLine-LightSaber.shader" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

@@ -338,7 +338,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 8
+  m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!114 &175933208
 MonoBehaviour:
@@ -355,6 +355,9 @@ MonoBehaviour:
   rb: {fileID: 175933207}
   currentAsteroidJoint: {fileID: 0}
   levelManager: {fileID: 507842358}
+  linePrefab: {fileID: 122648, guid: 11530f2b0a0cd2442949827ecbb622f2, type: 3}
+  trajectoryLine: {fileID: 0}
+  trajectoryLineBehavior: {fileID: 0}
 --- !u!1001 &494374245
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -426,10 +429,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f39cd7cf3ced44ea490e9a581a086a02, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1220605912}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f39cd7cf3ced44ea490e9a581a086a02, type: 3}
 --- !u!1 &507842357
 GameObject:
@@ -670,38 +670,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: f39cd7cf3ced44ea490e9a581a086a02, type: 3}
   m_PrefabInstance: {fileID: 494374245}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1220605909 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: f39cd7cf3ced44ea490e9a581a086a02, type: 3}
-  m_PrefabInstance: {fileID: 494374245}
-  m_PrefabAsset: {fileID: 0}
---- !u!54 &1220605912
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1220605909}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!1 &1540083081 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 7763313f0bc4a472b933e69f43b27d34, type: 3}
@@ -727,7 +695,7 @@ MeshCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
