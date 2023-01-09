@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
     public Rigidbody rb;
     public HingeJoint currentAsteroidJoint = null;
 
+    public LevelManager levelManager;
     public List<Resource> currentResources = new List<Resource>();
 
     // Start is called before the first frame update
@@ -30,6 +31,10 @@ public class Player : MonoBehaviour
         {
             AttachToAsteroid(collision.gameObject);
         }
+        else if (collision.gameObject.tag == "Ship")
+        {
+            levelManager.ReturnedToShip(currentResources);
+        }
     }
 
     void AttachToAsteroid(GameObject asteroid)
@@ -43,7 +48,8 @@ public class Player : MonoBehaviour
         // Attach to asteroid and begin rotating
         currentAsteroidJoint = gameObject.AddComponent<HingeJoint>();
         currentAsteroidJoint.connectedBody = asteroid.GetComponent<Rigidbody>();
-        rb.AddForce(1000, 0, 0);
+        asteroid.GetComponent<Rigidbody>().angularVelocity = new Vector3(2, 0, 2);
+        //rb.AddForce(1000, 0, 0);
 
         // Harvest the resources
         Asteroid asteroidObject = asteroid.GetComponent<Asteroid>();
