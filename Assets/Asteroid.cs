@@ -11,7 +11,9 @@ public class Asteroid : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        gameObject.transform.rotation = Random.rotation;
+        var fraction = Mathf.Min(Random.value + 0.2f, 1.0f);
+        gameObject.GetComponent<Rigidbody>().angularVelocity = new Vector3(fraction, -fraction, fraction * 2);
     }
 
     // Update is called once per frame
@@ -34,7 +36,7 @@ public class Asteroid : MonoBehaviour
                 resourceOrb.transform.parent = gameObject.transform;
 
                 float angle = (30f + resourceIndex * 30f) % 360;
-                resourceOrb.transform.localPosition = new Vector3(0, 0.55f, -0.5f);
+                resourceOrb.transform.localPosition = new Vector3(0, 12, -0.5f);
                 resourceOrb.transform.RotateAround(gameObject.transform.position, Vector3.back, angle);
                 resourceOrb.GetComponent<Renderer>().material.SetColor("_Color", resource.GetColor());
 
