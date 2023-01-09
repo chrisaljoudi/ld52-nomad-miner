@@ -93,12 +93,10 @@ public class Player : MonoBehaviour
             Destroy(currentAsteroidJoint);
         }
 
-        //rb.transform.LookAt(asteroid.transform); 
         // Attach to asteroid and begin rotating
         currentAsteroidJoint = gameObject.AddComponent<HingeJoint>();
         currentAsteroidJoint.connectedBody = asteroid.GetComponent<Rigidbody>();
         asteroid.GetComponent<Rigidbody>().angularVelocity = new Vector3(1, -1, 3);
-        //rb.AddForce(1000, 0, 0);
 
         // Harvest the resources
         Asteroid asteroidObject = asteroid.GetComponent<Asteroid>();
@@ -127,7 +125,7 @@ public class Player : MonoBehaviour
 
             // Stop z movement & move back to z=0 where all asteroids are
             rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, 0);
-            //rb.position = new Vector3(rb.position.x, rb.position.y, 0);
+            rb.position = new Vector3(rb.position.x, rb.position.y, 0);
         }
     }
 

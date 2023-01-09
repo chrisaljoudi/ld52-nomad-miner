@@ -78,7 +78,7 @@ public class Resource
         switch(material)
         {
             case Type.Silver:
-                return Color.gray;
+                return Color.blue;
             case Type.Gold:
                 return Color.yellow;
             case Type.Energy:

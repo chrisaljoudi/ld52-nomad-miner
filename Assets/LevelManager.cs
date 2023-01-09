@@ -8,9 +8,13 @@ public class LevelManager : MonoBehaviour
     private AsteroidConfig[][] levels = new[]
     {
         new[] {
-          new AsteroidConfig(0, 3, new[] { new Resource(Resource.Type.Gold) }),
-          new AsteroidConfig(7, 7, new[] { new Resource(Resource.Type.Energy, 1) })
-        }
+          new AsteroidConfig(0, 3, new[] { new Resource(Resource.Type.Energy) })
+        },
+        new[] {
+          new AsteroidConfig(-2, 1, new[] { new Resource(Resource.Type.Silver) }),
+          new AsteroidConfig(3, 4, new[] { new Resource(Resource.Type.Gold, 2) }),
+          new AsteroidConfig(0, 6, new[] { new Resource(Resource.Type.Energy, 1) }),
+        },
     };
 
     public GameObject asteroidPrefab;
@@ -21,12 +25,14 @@ public class LevelManager : MonoBehaviour
 
     public List<GameObject> currentAsteroids;
 
+    int currentLevel = 0;
+
     void Start()
     {
         notifyText.SetActive(false);
         currentAsteroids = new List<GameObject>();
 
-        StartLevel(levels[0]);
+        StartLevel(levels[currentLevel]);
     }
 
     // Update is called once per frame
@@ -78,6 +84,10 @@ public class LevelManager : MonoBehaviour
         {
             StartCoroutine(FailedLevel("Ship rejected you. Must harvest energy."));
         }
+        else
+        {
+            StartCoroutine(NextLevel());
+        }
     }
 
     IEnumerator FailedLevel(string reason)
@@ -85,10 +95,22 @@ public class LevelManager : MonoBehaviour
         StartCoroutine(Notify(reason));
         player.GetComponent<Player>().Dead();
         yield return new WaitForSeconds(0.6f);
-        StartLevel(new[] {
-          new AsteroidConfig(0, 3, new[] { new Resource(Resource.Type.Gold) }),
-          new AsteroidConfig(7, 7, new[] { new Resource(Resource.Type.Energy, 1) })
-        });
+        StartLevel(levels[currentLevel]);
+    }
+
+    IEnumerator NextLevel()
+    {
+        StartCoroutine(Notify("Nice. The ship is happy."));
+        yield return new WaitForSeconds(0.6f);
+        currentLevel += 1;
+        if (currentLevel < levels.Length)
+        {
+            StartLevel(levels[currentLevel]);
+        }
+        else
+        {
+            ThanksForPlaying();
+        }
     }
 
     public IEnumerator Notify(string notification)
@@ -97,6 +119,11 @@ public class LevelManager : MonoBehaviour
         notifyText.SetActive(true);
         yield return new WaitForSeconds(5);
         notifyText.SetActive(false);
+    }
+
+    void ThanksForPlaying()
+    {
+        Debug.Log("Thanks for playing!");
     }
 
 }
